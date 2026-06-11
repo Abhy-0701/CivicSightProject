@@ -1,0 +1,1 @@
+This a Repository made to track the progress of the Civic Sight Project created during the 2026 Summer intern at NIC
