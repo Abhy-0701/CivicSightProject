@@ -20,18 +20,12 @@ Rules for Classification:
 """
 
 # 3. Choose a test street name
-test_street = "Delhi - Dehradun Expy"
-
-print(f"Sending test request for: '{test_street}'...\n")
-
-try:
-    # 4. Generate content with Flash-lite and force a strict JSON output structure
+def resolve_authority(street_name: str) -> str:
     response = client.models.generate_content(
         model='gemini-2.5-flash-lite',
-        contents=test_street,
+        contents=street_name,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_INSTRUCTIONS,
-            # This enforces a JSON response object matching your schema
             response_mime_type="application/json",
             response_schema={
                 "type": "OBJECT",
@@ -45,11 +39,9 @@ try:
             }
         ),
     )
+    return response.text
 
-    # 5. Print the output
-    print("--- Model Response ---")
-    print(response.text)
-    print("----------------------")
 
-except Exception as e:
-    print(f"An error occurred: {e}")
+if __name__ == "__main__":
+    test_street = "Delhi - Dehradun Expy"
+    print(resolve_authority(test_street))
