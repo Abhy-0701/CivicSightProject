@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+h2 {
+    color: #333;
+    margin: 20px 0 15px;
+    font-size: 20px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.form-section {
+    margin: 20px 0;
+}
+
+.form-group {
+    margin: 15px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+input[type="file"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+textarea:disabled {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.btn-success {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #38a169;
+}
+
+.btn-large {
+    font-size: 16px;
+    padding: 14px;
+}
+
+.preview-img {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.report-details {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+
+.report-details p {
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.ticket-card {
+    background: #f0f9ff;
+    border: 2px solid #48bb78;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.ticket-card h3 {
+    font-size: 28px;
+    color: #48bb78;
+    font-family: 'Courier New', monospace;
+    margin: 10px 0;
+}
+
+.error-box {
+    background: #fee;
+    color: #c33;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 15px 0;
+    border-left: 4px solid #c33;
+    font-size: 13px;
+}

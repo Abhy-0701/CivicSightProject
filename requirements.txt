@@ -1,1 +1,5 @@
 requests
+google-genai
+python-dotenv
+Flask>=2.0.0
+Werkzeug>=2.0.0

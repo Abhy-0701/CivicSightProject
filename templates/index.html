@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicSight - Report Infrastructure Issue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Step 1: Photo & Location Capture -->
+        <div id="capture-form" class="form-section">
+            <h1>📍 CivicSight Issue Reporter</h1>
+            <p>Report infrastructure issues in your area</p>
+
+            <div class="form-group">
+                <label>📷 Photo</label>
+                <input type="file" id="photo-input" accept="image/*" capture="environment">
+                <button id="camera-btn" class="btn btn-primary">📷 Take Photo</button>
+                <canvas id="canvas" hidden></canvas>
+                <video id="video" hidden></video>
+                <img id="photo-preview" class="preview-img" hidden>
+            </div>
+
+            <div class="form-group">
+                <label>📍 Location</label>
+                <input type="number" id="latitude" placeholder="Latitude" step="0.000001">
+                <input type="number" id="longitude" placeholder="Longitude" step="0.000001">
+                <button id="location-btn" class="btn btn-secondary">📍 Get My Location</button>
+            </div>
+
+            <button id="submit-btn" class="btn btn-success btn-large">Submit for Analysis</button>
+        </div>
+
+        <!-- Step 2: Analysis Loading -->
+        <div id="loading-spinner" class="form-section" hidden>
+            <p>Analyzing image...</p>
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Step 3: Review & Edit Description -->
+        <div id="review-section" class="form-section" hidden>
+            <h2>📋 Review Your Report</h2>
+
+            <div class="report-details">
+                <p><strong>Address:</strong> <span id="review-address"></span></p>
+                <p><strong>Issue Type:</strong> <span id="review-issue"></span></p>
+                <p><strong>Severity:</strong> <span id="review-severity"></span></p>
+                <p><strong>Authority:</strong> <span id="review-authority"></span></p>
+                <p><strong>Confidence:</strong> <span id="review-confidence"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label><strong>Description:</strong></label>
+                <textarea id="description-text" rows="5" disabled></textarea>
+            </div>
+
+            <button id="edit-btn" class="btn btn-secondary">✏️ Edit</button>
+            <button id="confirm-btn" class="btn btn-success btn-large">✅ Confirm & Create Ticket</button>
+        </div>
+
+        <!-- Step 4: Success -->
+        <div id="success-section" class="form-section" hidden>
+            <h2>✅ Ticket Created Successfully!</h2>
+            <div class="ticket-card">
+                <p>Your Ticket ID:</p>
+                <h3 id="ticket-id-display"></h3>
+                <p>Share this ID to track your complaint</p>
+            </div>
+            <button id="new-report-btn" class="btn btn-primary btn-large">📝 Report Another Issue</button>
+        </div>
+
+        <!-- Error messages -->
+        <div id="error-message" class="error-box" hidden></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
