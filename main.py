@@ -5,13 +5,16 @@
 #     -> geocode.reverse_geocode_osm()       (lat/lng -> address + road name)
 #     -> imageDesc.analyze_image()           (photo -> issue type, severity, description)
 #     -> authRes.resolve_authority()         (road name -> responsible authority)
-#   -> merged JSON result
+#     -> ticketing.create_and_dispatch_ticket()  (create ticket + store in database)
+#   -> merged JSON result + ticket ID
 import json
 import sys
 
 from authorityResolution.authRes import resolve_authority
 from reverseGeoEncoding.geocode import reverse_geocode_osm
 from imageDescription.imageDesc import analyze_image
+from ticketing.ticket_dispatcher import create_and_dispatch_ticket
+from ticketing.ticket_model import Ticket
 
 
 def process_report(image_path: str, latitude: float, longitude: float) -> dict:
@@ -108,10 +111,24 @@ if __name__ == "__main__":
     lng = float(sys.argv[3])
 
     try:
+        # Initialize database on startup
+        Ticket.init_db()
+
+        # Process the report through the pipeline
         report = process_report(img_path, lat, lng)
         _pretty_print(report)
-        print("--- Full JSON ---")
+
+        # Create ticket if it's a valid civic issue with authority
+        ticket_result = create_and_dispatch_ticket(report, lat, lng, img_path)
+
+        if ticket_result["success"]:
+            print(f"✓ Ticket Created: {ticket_result['ticket_id']}")
+        else:
+            print(f"✗ Ticket Creation Failed: {ticket_result['error']}")
+
+        print("\n--- Full JSON ---")
         print(json.dumps(report, indent=2))
+
     except FileNotFoundError:
         print(f"Image not found at '{img_path}'.")
     except Exception as e:

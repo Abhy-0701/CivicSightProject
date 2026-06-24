@@ -22,7 +22,7 @@ Rules for Classification:
 # 3. Choose a test street name
 def resolve_authority(street_name: str) -> str:
     response = client.models.generate_content(
-        model='gemini-2.5-flash-lite',
+        model='gemini-2.5-flash',
         contents=street_name,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_INSTRUCTIONS,
