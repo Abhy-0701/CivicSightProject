@@ -1,0 +1,3 @@
+I need to improve the accuracy regarding location like these in the image.png one.
+improve the authority detection in case there is no specific road name mentioned.
+if the address is just the address of a residential building then place that onto the local authority.
