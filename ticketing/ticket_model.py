@@ -123,7 +123,7 @@ class Ticket:
             location.get("full_address", ""),
             image_path,
             confidence,
-            report.get("description", ""), # Added description here
+            vision.get("description", ""), # Added description here
             "pending",
             datetime.now().isoformat(),
             datetime.now().isoformat(),
