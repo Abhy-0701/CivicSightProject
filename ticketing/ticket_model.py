@@ -14,6 +14,7 @@ class Ticket:
         cursor = conn.cursor()
 
         cursor.execute("""
+
             CREATE TABLE IF NOT EXISTS tickets (
                 id TEXT PRIMARY KEY,
                 ticket_id VARCHAR(50) UNIQUE,
@@ -24,6 +25,7 @@ class Ticket:
                 address TEXT,
                 image_url TEXT,
                 confidence_score FLOAT,
+                description TEXT,
                 status VARCHAR(50),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -106,10 +108,11 @@ class Ticket:
                 address,
                 image_url,
                 confidence_score,
+                description,
                 status,
                 created_at,
                 updated_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             unique_id,
             ticket_id,
@@ -120,6 +123,7 @@ class Ticket:
             location.get("full_address", ""),
             image_path,
             confidence,
+            report.get("description", ""), # Added description here
             "pending",
             datetime.now().isoformat(),
             datetime.now().isoformat(),
