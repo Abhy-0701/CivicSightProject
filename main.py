@@ -50,7 +50,7 @@ def process_report(image_path: str, latitude: float, longitude: float) -> dict:
 
     # 3. Only resolve authority if the photo is a genuine civic issue
     if vision_result.get("is_valid_civic_issue"):
-        road_name = location.get("road") or ""
+        road_name = location.get("road") or location.get("locality") or ""
         if road_name:
             authority_raw = resolve_authority(road_name)
             result["authority"] = json.loads(authority_raw)

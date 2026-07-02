@@ -1,5 +1,6 @@
 #This is to get the name of the road authority by giving the road name.
 import os
+import json
 from google import genai
 from google.genai import types
 
@@ -17,6 +18,10 @@ Rules for Classification:
 3. PWD: Major arterial roads, ring roads, and sub-arterials spanning greater than 60-feet in width.
 4. NHAI: National Highways passing through Delhi (e.g., NH-44, NH-48).
 5. Delhi Cantt: Roads explicitly within the military cantonment area.
+6. DEFAULT RULE: If the input is a residential colony/locality name, is vague, generic,
+   or does not clearly match rules 2-5 above, always classify it as MCD. Never return
+   "unknown", "none", or leave responsible_authority empty - MCD is the correct default
+   for all standard residential and local areas in Delhi.
 """
 
 # 3. Choose a test street name
@@ -39,7 +44,17 @@ def resolve_authority(street_name: str) -> str:
             }
         ),
     )
-    return response.text
+
+    result = json.loads(response.text)
+
+    # Safety net: if Gemini still returns nothing usable, default to MCD
+    authority = result.get("responsible_authority", "").strip().lower()
+    if authority in ("", "none", "unknown", "n/a", "null"):
+        result["responsible_authority"] = "MCD"
+        result["reasoning"] = (result.get("reasoning") or "") + \
+            " [Fallback applied: defaulted to MCD due to missing/ambiguous authority.]"
+
+    return json.dumps(result)
 
 
 if __name__ == "__main__":
